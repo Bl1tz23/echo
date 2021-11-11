@@ -169,7 +169,8 @@ type (
 
 /*
 NewRateLimiterMemoryStore returns an instance of RateLimiterMemoryStore with
-the provided rate (as req/s). Burst and ExpiresIn will be set to default values.
+the provided rate (as req/s). The provided rate less than 1 will be treated as zero.
+Burst and ExpiresIn will be set to default values.
 
 Example (with 20 requests/sec):
 
@@ -198,7 +199,7 @@ Characteristics:
 Example:
 
 	limiterStore := middleware.NewRateLimiterMemoryStoreWithConfig(
-		middleware.RateLimiterMemoryStoreConfig{Rate: 50, Burst: 200, ExpiresIn: 5 * time.Minutes},
+		middleware.RateLimiterMemoryStoreConfig{Rate: 50, Burst: 200, ExpiresIn: 5 * time.Minute},
 	)
 */
 func NewRateLimiterMemoryStoreWithConfig(config RateLimiterMemoryStoreConfig) (store *RateLimiterMemoryStore) {
